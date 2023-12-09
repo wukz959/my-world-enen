@@ -34,7 +34,7 @@ jobs:
             ${{ runner.os }}-m2
 
       - name: Build with Maven
-          run: mvn package # 直接使用mvn命令
+        run: mvn package # 直接使用mvn命令
 
       - name: Run tests
         run: mvn test # 直接使用mvn命令进行测试
