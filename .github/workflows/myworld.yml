@@ -1,0 +1,43 @@
+name: Spring Boot CI
+
+on:
+  push: # 当有代码被推送（push）到main分支时，工作流将被触发。
+    branches: [ main ]
+  pull_request: # 当有拉取请求（pull request）针对main分支被创建或更新时，工作流将被触发
+    branches: [ main ]
+# [ main ] 指定了一个数组，列出了哪些分支的push或pull request事件会触发工作流
+
+jobs:
+  build-and-test:
+    runs-on: ubuntu-latest
+
+    steps: # 表示工作流程中的一系列步骤，每个步骤可以执行一个任务，例如检出代码、安装依赖、运行脚本等
+      - name: Checkout code # 步骤的名称
+        # 工作流程运行时,在GitHub Actions的虚拟环境中创建您的仓库的一个副本，后续的步骤（例如安装依赖、构建、测试等）都会在这个副本上执行. v2:第二个版本
+        uses: actions/checkout@v2
+
+      - name: Set up JDK 17
+        uses: actions/setup-java@v2
+        with:
+          java-version: '17'
+          distribution: 'adopt' # 使用的JDK发行版是AdoptOpenJDK
+
+      - name: Cache Maven packages # 缓存Maven的依赖项，可以避免每次都从头下载所有依赖,以加快后续构建的速度
+        uses: actions/cache@v2
+        with:
+          path: ~/.m2 # 指定了要缓存的目录路径。~/.m2是Maven的本地仓库的默认位置，这里存储了Maven下载的所有依赖项
+          # 设置一个唯一的键来保存和检索缓存。这个键包含了运行者的操作系统（runner.os），一个固定的字符串（m2），以及所有pom.xml文件内容的哈希值
+          # 如果pom.xml文件没有更改，GitHub Actions就会重用已有的缓存，而不是重新下载所有依赖项
+          key: ${{ runner.os }}-m2-${{ hashFiles('**/pom.xml') }}
+          restore-keys: |
+            ${{ runner.os }}-m2
+
+      - name: Build with Maven
+        run: ./mvnw package --file pom.xml # 用于在没有安装Maven的系统上运行Maven命令,它会自动下载Maven的正确版本并执行相关命令
+
+      - name: Run tests
+        run: ./mvnw test --file pom.xml
+
+        # 如果您有部署步骤，可以在这里添加
+        # - name: Deploy
+        #   run: <部署命令>

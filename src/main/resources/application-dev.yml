@@ -1,0 +1,23 @@
+server:
+  port: 7777
+  servlet:
+    context-path: /myworld
+spring:
+  data:
+    mongodb:
+      host: 192.168.43.103
+      port: 27017
+      database: home
+  redis:
+    host: 192.168.43.103
+    port: 6379
+myGPT:
+  url: ${GPT_URL:https://gateway.ai.cloudflare.com/v1/4056673681b0e77aa8bf0b8a2f8ced76/gpt-gateway/openai/chat/completions}
+  apiKey: ${GPT_API_KEY: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}
+  model: ${GPT_MODEL:gpt-3.5-turbo}
+  maxTokens: ${GPT_MAX_TOKEN:600} # 每个回答最多可消费token
+  textMaxLength: ${GPT_TEXT_MAX_LENGTH:500} # 每个问题最多可占字符数
+  maxCountPerson: ${GPT_MAX_COUNT_PERSON:600} # 每个IP最多提问次数
+logging:
+  level:
+    root: info
