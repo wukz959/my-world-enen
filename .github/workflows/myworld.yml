@@ -65,11 +65,11 @@ jobs:
           key: ${{ secrets.SSH_PRIVATE_KEY }}
           # scipt运行的是 shell 脚本，会按照标准的 shell 环境变量规则来解析变量，所以不用${{ env.DOCKER_REGISTRY }}
           script: |
-            echo docker pull $DOCKER_REGISTRY/my-world-enen/helloenen:latest
-            echo docker run --network host -v /nas/my-world-enen:/app/temp --env-file /opt/myworld-enen-prod/env -d --name=my-world-enen $DOCKER_REGISTRY/my-world-enen/helloenen:latest java -jar /app.jar
-            docker pull $DOCKER_REGISTRY/my-world-enen/helloenen:latest
+            echo docker pull ${{env.DOCKER_REGISTRY}}/my-world-enen/helloenen:latest
+            echo docker run --network host -v /nas/my-world-enen:/app/temp --env-file /opt/myworld-enen-prod/env -d --name=my-world-enen ${{env.DOCKER_REGISTRY}}/my-world-enen/helloenen:latest java -jar /app.jar
+            docker pull ${{env.DOCKER_REGISTRY}}/my-world-enen/helloenen:latest
             docker rm -f my-world-enen || true
-            docker run --network host -v /nas/my-world-enen:/app/temp --env-file /opt/myworld-enen-prod/env -d --name=my-world-enen $DOCKER_REGISTRY/my-world-enen/helloenen:latest java -jar /app.jar
+            docker run --network host -v /nas/my-world-enen:/app/temp --env-file /opt/myworld-enen-prod/env -d --name=my-world-enen ${{env.DOCKER_REGISTRY}}/my-world-enen/helloenen:latest java -jar /app.jar
             docker system prune -f
 
 
