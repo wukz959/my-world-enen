@@ -45,23 +45,30 @@ jobs:
     env:
       DOCKER_PASSWORD: ${{ secrets.DOCKER_PASSWORD }}
       DOCKER_REGISTRY: registry.cn-guangzhou.aliyuncs.com
+      SERVER_USERNAME: root
+      SERVER_HOST: 8.134.180.176
     runs-on: ubuntu-latest
     steps:
       # 由于我们是托管在GitHub运行器（不在自己的服务器上运行），而不是自托管运行器，所以不能用--env-file=/opt/myworld-enen-prod/env来指定服务器上
       # 的环境变量文件，只能将变量值保存在GitHub的Secrets，再读取值到服务器的文件，让docker读取
-      - name: Set up SSH
+      - name: Checkout code
+        uses: actions/checkout@v2
+      - name: Set up SSH key
         uses: webfactory/ssh-agent@v0.5.3
         with:
           ssh-private-key: ${{ secrets.SSH_PRIVATE_KEY }}
       - name: Deploy to Server via SSH
-        # StrictHostKeyChecking=no 是为了防止主机密钥验证问题，它告诉 SSH 客户端不要在第一次连接时拒绝连接。
-        run: |
-          ssh -o StrictHostKeyChecking=no root@8.134.180.176 << 'EOF'
+        uses: appleboy/ssh-action@master
+        with:
+          host: $SERVER_HOST
+          username: $SERVER_USERNAME
+          key: ${{ secrets.SSH_PRIVATE_KEY }}
+          script: |
             docker pull $DOCKER_REGISTRY/my-world-enen/helloenen:latest
             docker rm -f my-world-enen || true
             docker run --network host -v /nas/my-world-enen:/app/temp --env-file /opt/myworld-enen-prod/env -d --name=my-world-enen $DOCKER_REGISTRY/my-world-enen/helloenen:latest java -jar /app.jar
             docker system prune -f
-          EOF
+
 
 
 
