@@ -1,12 +1,15 @@
 server:
   port: ${SERVER_PORT:7777}
+  servlet:
+    context-path: ${SERVER_CONTEXT_PATH:/myworld}
 spring:
   data:
     mongodb:
-      host: ${MONGO_HOST:127.0.0.1}
-      port: ${MONGO_PORT:27017}
-      database: ${MONGO_DB:home}
-
+      uri: ${MONGODB_URI:mongodb://root@192.168.43.103:1003/home}
+  redis:
+    host: ${REDIS_HOST:192.168.43.103}
+    port: ${REDIS_PORT:6379}
+    password: ${REDIS_PASSWORD:123456qwe}
 myGPT:
   url: ${GPT_URL:https://gateway.ai.cloudflare.com/v1/4056673681b0e77aa8bf0b8a2f8ced76/gpt-gateway/openai/chat/completions}
   apiKey: ${GPT_API_KEY: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}
@@ -14,6 +17,9 @@ myGPT:
   maxTokens: ${GPT_MAX_TOKEN:600} # 每个回答最多可消费token
   textMaxLength: ${GPT_TEXT_MAX_LENGTH:500} # 每个问题最多可占字符数
   maxCountPerson: ${GPT_MAX_COUNT_PERSON:600} # 每个IP最多提问次数
-
+#  maxIPCount: ${GPT_MAX_IP_COUNT:30} # 最多允许多少IP访问
+logging:
+  level:
+    root: info
 
 

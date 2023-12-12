@@ -66,13 +66,13 @@ public class GPTController {
                 return Result.error(403, "您今天的请求次数已达上限");
             }
             log.info("get question: " + question);
-//            try {
-//                ans = gPTService.askQuestion(question);
-//            } catch (IOException e) {
-//                e.printStackTrace();
-//                return Result.error(500, "服务器好像出问题了哦！！！不如再试试?！");
-//            }
-            ans = "你好！GPT模型的最大token数量取决于具体的模型架构和预训练过程。在GPT-3这样的较大模型中，最大token数量为2048个。\n但需要注意，进行预测或生成回答时，建议将输入文本限制在模型的最大输入限制范围内，以确保获得最佳的性能和效果。对于GPT-3模型而言，通常建议将输入限制在最大token数量的一半左右，即约1024个tokens。这样做可以避免模型的响应时间过长和性能下降。";
+            try {
+                ans = gPTService.askQuestion(question);
+            } catch (IOException e) {
+                log.info("querstion: {},  error: {}", question, e.getMessage());
+                return Result.error(500, "服务器好像出问题了哦！！！不如再试试?！");
+            }
+//            ans = "你好！GPT模型的最大token数量取决于具体的模型架构和预训练过程。在GPT-3这样的较大模型中，最大token数量为2048个。\n但需要注意，进行预测或生成回答时，建议将输入文本限制在模型的最大输入限制范围内，以确保获得最佳的性能和效果。对于GPT-3模型而言，通常建议将输入限制在最大token数量的一半左右，即约1024个tokens。这样做可以避免模型的响应时间过长和性能下降。";
             if (count==null){
                 stringRedisTemplate.opsForValue().set(countKey, "1", Duration.ofDays(1));
             }else {

@@ -9,9 +9,9 @@
         <relativePath/> <!-- lookup parent from repository -->
     </parent>
     <groupId>com.myworld</groupId>
-    <artifactId>enen</artifactId>
+    <artifactId>my-world-enen</artifactId>
     <version>0.0.1-SNAPSHOT</version>
-    <name>enen</name>
+    <name>my-world-enen</name>
     <description>Welcome to my world~</description>
     <properties>
         <java.version>17</java.version>

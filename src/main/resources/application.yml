@@ -2,4 +2,4 @@ server:
   port: 7777
 spring:
   profiles:
-    active: dev
+    active: ${SPRING_PROFILES_ACTIVE:dev}
