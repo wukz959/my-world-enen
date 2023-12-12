@@ -47,11 +47,20 @@ jobs:
       DOCKER_REGISTRY: registry.cn-guangzhou.aliyuncs.com
     runs-on: ubuntu-latest
     steps:
+      # 由于我们是托管在GitHub运行器（不在自己的服务器上运行），而不是自托管运行器，所以不能用--env-file=/opt/myworld-enen-prod/env来指定服务器上
+      # 的环境变量文件，只能将变量值保存在GitHub的Secrets，再读取值到服务器的文件，让docker读取
+      - name: Create .env file from GitHub Secrets
+          run: |
+            echo "SPRING_PROFILES_ACTIVE=${{ secrets.SPRING_PROFILES_ACTIVE }}" >> .env
+            echo "MONGODB_URI=${{ secrets.MONGODB_URI }}" >> .env
+            echo "REDIS_HOST=${{ secrets.REDIS_HOST }}" >> .env
+            echo "REDIS_PORT=${{ secrets.REDIS_PORT }}" >> .env
+            echo "REDIS_PASSWORD=${{ secrets.REDIS_PASSWORD }}" >> .env
       - name: Deploy to Enen
         run: |
           docker pull $DOCKER_REGISTRY/my-world-enen/helloenen:latest
           docker rm -f helloenen
-          docker run --network host -v /nas/my-world-enen:/app/temp --env-file=/opt/myworld-enen-prod/env -d --name=my-world-enen $DOCKER_REGISTRY/my-world-enen/helloenen:latest java -jar /app.jar
+          docker run --network host -v /nas/my-world-enen:/app/temp --env-file .env -d --name=my-world-enen $DOCKER_REGISTRY/my-world-enen/helloenen:latest java -jar /app.jar
           docker system prune -f
 
 
