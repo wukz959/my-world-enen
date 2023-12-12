@@ -42,7 +42,7 @@ jobs:
           docker push $DOCKER_REGISTRY/my-world-enen/helloenen:latest
   deploy-enen:
     needs: build-and-publish
-    env:
+    env: # 定义环境变量
       DOCKER_PASSWORD: ${{ secrets.DOCKER_PASSWORD }}
       DOCKER_REGISTRY: registry.cn-guangzhou.aliyuncs.com
       SERVER_USERNAME: root
@@ -60,9 +60,10 @@ jobs:
       - name: Deploy to Server via SSH
         uses: appleboy/ssh-action@master
         with:
-          host: $SERVER_HOST
-          username: $SERVER_USERNAME
+          host: ${{ env.SERVER_HOST }}
+          username: ${{ env.SERVER_USERNAME }}
           key: ${{ secrets.SSH_PRIVATE_KEY }}
+          # scipt运行的是 shell 脚本，会按照标准的 shell 环境变量规则来解析变量，所以不用${{ env.DOCKER_REGISTRY }}
           script: |
             docker pull $DOCKER_REGISTRY/my-world-enen/helloenen:latest
             docker rm -f my-world-enen || true
