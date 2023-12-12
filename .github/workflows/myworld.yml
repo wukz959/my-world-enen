@@ -34,15 +34,25 @@ jobs:
             ${{ runner.os }}-m2
       - name: Build with Maven
         run: mvn package # 直接使用mvn命令
-      - name: Run tests
-        run: mvn test # 直接使用mvn命令进行测试
       - name: build-docker-image
         run: | # 登录阿里云镜像仓库，打包项目jar包并上传到远程阿里云仓库
           docker login --username=helloenen -p $DOCKER_PASSWORD $DOCKER_REGISTRY
           docker rmi -f $DOCKER_REGISTRY/my-world-enen/helloenen:latest
           docker build -t $DOCKER_REGISTRY/my-world-enen/helloenen:latest .
           docker push $DOCKER_REGISTRY/my-world-enen/helloenen:latest
-
+  deploy-enen:
+    needs: build-and-publish
+    env:
+      DOCKER_PASSWORD: ${{ secrets.DOCKER_PASSWORD }}
+      DOCKER_REGISTRY: registry.cn-guangzhou.aliyuncs.com
+    runs-on: ubuntu-latest
+    steps:
+      - name: Deploy to Enen
+        run: |
+          docker pull $DOCKER_REGISTRY/my-world-enen/helloenen:latest
+          docker rm -f helloenen
+          docker run --network host -v /nas/my-world-enen:/app/temp --env-file=/opt/myworld-enen-prod/env -d --name=my-world-enen $DOCKER_REGISTRY/my-world-enen/helloenen:latest java -jar /app.jar
+          docker system prune -f
 
 
 

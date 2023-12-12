@@ -26,6 +26,9 @@ public class IndexController {
     public String sayHello(){
         log.debug("debug...........");
         log.info("info.............");
+        log.error("error...........");
+        log.warn("warn.............");
+        log.trace("trace.............");
         return "Hello";
     }
 

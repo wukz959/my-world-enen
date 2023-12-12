@@ -26,10 +26,10 @@ public class BlogController {
         return blogService.getAllBlogList();
     }
 
-    @PostMapping("/saveBlog")
-    public Result save(@RequestBody Blog blog){
-        return blogService.saveBlog(blog);
-    }
+//    @PostMapping("/saveBlog")
+//    public Result save(@RequestBody Blog blog){
+//        return blogService.saveBlog(blog);
+//    }
 
     @GetMapping("/getOpenSource")
     public List<Blog> getOpenSource(){
