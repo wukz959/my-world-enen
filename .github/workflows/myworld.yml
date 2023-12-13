@@ -68,8 +68,8 @@ jobs:
           # 而实际是在服务器上运行
           script: |
           # echo docker pull ${{ env.DOCKER_REGISTRY }}/my-world-enen/helloenen:latest
-            echo pull $DOCKER_REGISTRY /my-world-enen/helloenen:latest
-            echo pull $DOCKER_REGISTRY /my-world-enen/helloenen:latest
+            echo docker pull $DOCKER_REGISTRY /my-world-enen/helloenen:latest
+            echo docker pull $DOCKER_REGISTRY /my-world-enen/helloenen:latest
             docker pull ${{ env.DOCKER_REGISTRY }} /my-world-enen/helloenen:latest
             docker rm -f my-world-enen || true
             docker run --network host -v /nas/my-world-enen:/app/temp --env-file /opt/myworld-enen-prod/env -d --name=my-world-enen ${{ env.DOCKER_REGISTRY }}/my-world-enen/helloenen:latest java -jar /app.jar
