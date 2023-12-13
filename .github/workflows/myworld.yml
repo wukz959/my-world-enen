@@ -66,8 +66,9 @@ jobs:
           # scipt运行的是 shell 脚本，会按照标准的 shell 环境变量规则来解析变量，一般不用${{ env.DOCKER_REGISTRY }}，但这里必须用
           # ${{ env.DOCKER_REGISTRY }}，不能用$DOCKER_REGISTRY来获取变量值（会获取到空值），应该是因为这段脚本是在Github Actions定义，
           # 而实际是在服务器上运行
-          script: |
           # echo docker pull ${{ env.DOCKER_REGISTRY }}/my-world-enen/helloenen:latest
+          # 注意：script里最好不要写注释，不然可能会导致yml格式校验出错
+          script: |
             echo docker pull $DOCKER_REGISTRY/my-world-enen/helloenen:latest
             echo docker pull $DOCKER_REGISTRY/my-world-enen/helloenen:latest
             docker pull ${{ env.DOCKER_REGISTRY }} /my-world-enen/helloenen:latest
