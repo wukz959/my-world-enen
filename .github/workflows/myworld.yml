@@ -70,7 +70,7 @@ jobs:
           # 注意：script里最好不要写注释，不然可能会导致yml格式校验出错
           script: |
             echo docker pull $DOCKER_REGISTRY/my-world-enen/helloenen:latest
-            echo docker pull $DOCKER_REGISTRY/my-world-enen/helloenen:latest
+            echo docker pull ${{ env.DOCKER_REGISTRY }}/my-world-enen/helloenen:latest
             docker pull ${{ env.DOCKER_REGISTRY }} /my-world-enen/helloenen:latest
             docker rm -f my-world-enen || true
             docker run --network host -v /nas/my-world-enen:/app/temp --env-file /opt/myworld-enen-prod/env -d --name=my-world-enen ${{ env.DOCKER_REGISTRY }}/my-world-enen/helloenen:latest java -jar /app.jar
