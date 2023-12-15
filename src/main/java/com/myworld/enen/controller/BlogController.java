@@ -16,7 +16,6 @@ import java.util.List;
  * @Version 1.0
  */
 @RestController("/myworld")
-//@CrossOrigin
 public class BlogController {
     @Autowired
     private BlogService blogService;

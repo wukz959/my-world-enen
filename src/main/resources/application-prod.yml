@@ -14,10 +14,13 @@ myGPT:
   url: ${GPT_URL:https://gateway.ai.cloudflare.com/v1/4056673681b0e77aa8bf0b8a2f8ced76/gpt-gateway/openai/chat/completions}
   apiKey: ${GPT_API_KEY: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}
   model: ${GPT_MODEL:gpt-3.5-turbo}
-  maxTokens: ${GPT_MAX_TOKEN:600} # 每个回答最多可消费token
+  maxTokens: ${GPT_MAX_TOKEN:800} # 每个回答最多可消费token
   textMaxLength: ${GPT_TEXT_MAX_LENGTH:500} # 每个问题最多可占字符数
-  maxCountPerson: ${GPT_MAX_COUNT_PERSON:600} # 每个IP最多提问次数
+  maxCountPerson: ${GPT_MAX_COUNT_PERSON:5} # 每个IP最多提问次数
 #  maxIPCount: ${GPT_MAX_IP_COUNT:30} # 最多允许多少IP访问
+origin:
+  allow: ${ORIGINS_ALLOW:http://helloenen:fun:2365}
+
 logging:
   level:
     root: info
