@@ -18,6 +18,14 @@ myGPT:
   textMaxLength: ${GPT_TEXT_MAX_LENGTH:500} # 每个问题最多可占字符数
   maxCountPerson: ${GPT_MAX_COUNT_PERSON:5} # 每个IP最多提问次数
 #  maxIPCount: ${GPT_MAX_IP_COUNT:30} # 最多允许多少IP访问
+
+aliyun:
+  oss:
+    endpoint: oss-cn-guangzhou.aliyuncs.com
+    accessKeyId: LTAI5tEWRD4CAz9pvQmp4hK7
+    accessKeySecret: 3vQDDajcsvvKqpSU6cqB9sRqY2Fej4
+    bucketName: hellowukz
+
 origin:
   allow: '*'
 logging:

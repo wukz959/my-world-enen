@@ -3,8 +3,8 @@ name: Spring Boot CI
 on:
   push: # 当有代码被推送（push）到main分支时，工作流将被触发。
     branches: [ main ]
-  pull_request: # 当有拉取请求（pull request）针对main分支被创建或更新时，工作流将被触发
-    branches: [ main ]
+#  pull_request: # 当有拉取请求（pull request）针对main分支被创建或更新时，工作流将被触发
+#    branches: [ main ]
 # [ main ] 指定了一个数组，列出了哪些分支的push或pull request事件会触发工作流
 
 jobs:

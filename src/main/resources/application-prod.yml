@@ -19,7 +19,13 @@ myGPT:
   maxCountPerson: ${GPT_MAX_COUNT_PERSON:5} # 每个IP最多提问次数
 #  maxIPCount: ${GPT_MAX_IP_COUNT:30} # 最多允许多少IP访问
 origin:
-  allow: ${ORIGINS_ALLOW:http://helloenen:fun:2365}
+  allow: ${ORIGINS_ALLOW:http://helloenen.fun:2365}
+aliyun:
+  oss:
+    endpoint: ${ALIYUN_OSS_ENDPOINT:oss-cn-guangzhou.aliyuncs.com}
+    accessKeyId: ${ALIYUN_OSS_ACCESS_KEY_ID:LTAI5tEWRD4CAz9pvQmp4hK7}
+    accessKeySecret: ${ALIYUN_OSS_ACCESS_KEY_SECRET:3vQDDajcsvvKqpSU6cqB9sRqY2Fej4}
+    bucketName: ${ALIYUN_OSS_BUCKET_NAME:hellowukz}
 
 logging:
   level:
