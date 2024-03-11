@@ -19,7 +19,7 @@ import javax.servlet.http.HttpServletRequest;
 public class GlobalExceptionHandler {
     @ExceptionHandler(value = Exception.class)
     public Result handleAllException(Exception e, HttpServletRequest req) {
-        log.error("数据异常{}，异常类型：{}, 请求路径: {}{}",e.getMessage(),e.getClass(), req.getMethod() + ": " ,req.getRequestURI());
+        log.error("全局捕获数据异常{}，异常类型：{}, 请求路径: {}{}",e.getMessage(),e.getClass(), req.getMethod() + ": " ,req.getRequestURI());
         return Result.error();
     }
 }

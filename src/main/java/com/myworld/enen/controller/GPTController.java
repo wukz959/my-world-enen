@@ -38,6 +38,8 @@ public class GPTController {
     @Value(("${myGPT.maxCountPerson}"))
     private String MAX_COUNT_PERSON;
 
+    private String defaultAns = "本文本为：由于特殊情况使用了默认文本填充回答 (仅数据库可见)";
+
     @PostMapping("/talkToGPT")
     public Result talkToGPT(@RequestBody ChatRecord questionRecord, HttpServletRequest request){
         // cloudflare的ai 网关接受请求的参数不能带有换行符\n
@@ -60,8 +62,17 @@ public class GPTController {
             if (lock!=null&&!lock){
                 return Result.error(403, "请勿重复点击");
             }
+            // 获取用户咨询了多少次
             String count = stringRedisTemplate.opsForValue().get(countKey);
+            // 记录问题与相关信息
+            ChatRecord chatRecord = new ChatRecord();
+            chatRecord.setQuestion(question);
+            chatRecord.setAnswer(defaultAns);
+            chatRecord.setPublishIp(remoteAddr);
+            chatRecord.setCreateTime(TimeUtils.getTimeNow());
+
             if (count!=null && count.equals(MAX_COUNT_PERSON)) {
+                mongoTemplate.save(chatRecord);
                 return Result.error(403, "您今天的请求次数已达上限");
             }
             log.info("get question: " + question);
@@ -69,6 +80,7 @@ public class GPTController {
                 ans = gPTService.askQuestion(question);
             } catch (IOException e) {
                 log.info("querstion: {},  error: {}", question, e.getMessage());
+                mongoTemplate.save(chatRecord);
                 return Result.error(500, "服务器好像出问题了哦！！！不如再试试?！");
             }
 //            ans = "你好！GPT模型的最大token数量取决于具体的模型架构和预训练过程。在GPT-3这样的较大模型中，最大token数量为2048个。\n但需要注意，进行预测或生成回答时，建议将输入文本限制在模型的最大输入限制范围内，以确保获得最佳的性能和效果。对于GPT-3模型而言，通常建议将输入限制在最大token数量的一半左右，即约1024个tokens。这样做可以避免模型的响应时间过长和性能下降。";
@@ -80,16 +92,9 @@ public class GPTController {
             }
             //解锁
             stringRedisTemplate.delete(lockKey);
-
-            // 保存问题与回答
-            ChatRecord chatRecord = new ChatRecord();
-            chatRecord.setQuestion(question);
+//            // 保存回答
             chatRecord.setAnswer(ans);
-            chatRecord.setPublishIp(remoteAddr);
-            chatRecord.setCreateTime(TimeUtils.getTimeNow());
             mongoTemplate.save(chatRecord);
-        } catch (Exception e) {
-            e.printStackTrace();
         } finally {
             stringRedisTemplate.delete(lockKey);
         }

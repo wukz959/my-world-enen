@@ -1,8 +1,7 @@
 package com.myworld.enen.config;
 
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.boot.context.properties.ConfigurationProperties;
-import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.cors.CorsConfiguration;
@@ -18,6 +17,7 @@ import java.util.List;
  * @Date 2023/12/13 21:15
  * @Version 1.0
  */
+@Slf4j
 @Configuration
 public class GlobalCorsConfig {
     @Value("${origin.allow}")
@@ -26,11 +26,13 @@ public class GlobalCorsConfig {
     public CorsFilter corsFilter() {
         //1. 添加 CORS配置信息
         CorsConfiguration config = new CorsConfiguration();
-        //放行哪些原始域
-        System.out.println(allow[0]);
         List<String> allowOrigins = Arrays.asList(allow);
-        config.setAllowedOriginPatterns(allowOrigins);
-//        config.addAllowedOriginPattern("*");
+        log.info("放行域名：");
+        for (int i = 0; i < allowOrigins.size(); i++) {
+            log.info(allowOrigins.get(i));
+        }
+//        config.setAllowedOriginPatterns(allowOrigins);
+        config.addAllowedOriginPattern("*");
         //是否发送 Cookie
         config.setAllowCredentials(true);
         //放行哪些请求方式
@@ -38,7 +40,7 @@ public class GlobalCorsConfig {
         //放行哪些原始请求头部信息
         config.addAllowedHeader("*");
         //暴露哪些头部信息
-        config.addExposedHeader("*");
+//        config.addExposedHeader("*");
         //2. 添加映射路径
         UrlBasedCorsConfigurationSource corsConfigurationSource = new UrlBasedCorsConfigurationSource();
         corsConfigurationSource.registerCorsConfiguration("/**",config);

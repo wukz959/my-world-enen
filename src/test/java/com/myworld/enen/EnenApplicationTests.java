@@ -2,11 +2,15 @@ package com.myworld.enen;
 
 import com.myworld.enen.Service.BlogService;
 import com.myworld.enen.utils.GPTKit;
-import com.myworld.enen.utils.UploadOSSFile;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.test.context.SpringBootTest;
+
+import java.awt.*;
+import java.io.IOException;
+import java.net.URI;
+import java.net.URISyntaxException;
 
 
 @SpringBootTest
@@ -38,5 +42,26 @@ class EnenApplicationTests {
 //        System.out.println(s);
 //        System.out.println("  ********************************  ");
         System.out.println(GPTKit.extractMessageFromJSONResponse(s));
+    }
+    @Test
+    void testXssAttack(){
+//        URL url = new URL("http://www.baidu.com");
+        browserUrl("http://www.baidu.com");
+    }
+    public void browserUrl(String url){
+        //判断是否支持Desktop扩展,如果支持则进行下一步
+        if (Desktop.isDesktopSupported()){
+            try {
+                URI uri = new URI(url);
+                Desktop desktop = Desktop.getDesktop(); //创建desktop对象
+                //调用默认浏览器打开指定URL
+                desktop.browse(uri);
+            } catch (URISyntaxException e) {
+                e.printStackTrace();
+            } catch (IOException e) {
+                //如果没有默认浏览器时，将引发下列异常
+                e.printStackTrace();
+            }
+        }
     }
 }

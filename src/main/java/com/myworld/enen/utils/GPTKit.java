@@ -55,6 +55,13 @@ public class GPTKit {
         String body = "{\"model\": \"" + model + "\", \"max_tokens\":" + maxTokens + ", \"messages\": [{\"role\": \"user\", \"content\": \"" + question + "\"}]}";
         connection.setDoOutput(true);
         OutputStreamWriter writer = new OutputStreamWriter(connection.getOutputStream());
+//        if (true){
+//            throw  new NullPointerException();
+//        }
+//        if (true){
+//            throw new IOException();
+//        }
+//        System.out.println("123");
         writer.write(body);
         writer.flush();
         writer.close();
