@@ -11,7 +11,8 @@ spring:
     port: ${REDIS_PORT:6379}
     password: ${REDIS_PASSWORD:123456qwe}
 myGPT:
-  url: ${GPT_URL:https://gateway.ai.cloudflare.com/v1/4056673681b0e77aa8bf0b8a2f8ced76/gpt-gateway/openai/chat/completions}
+#  url: ${GPT_URL:https://gateway.ai.cloudflare.com/v1/4056673681b0e77aa8bf0b8a2f8ced76/gpt-gateway/openai/chat/completions}
+  url: ${GPT_URL:https://chatmyworld.fun/v1/chat/completions}
   apiKey: ${GPT_API_KEY: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}
   model: ${GPT_MODEL:gpt-3.5-turbo}
   maxTokens: ${GPT_MAX_TOKEN:800} # 每个回答最多可消费token
