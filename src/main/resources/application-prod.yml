@@ -5,10 +5,10 @@ server:
 spring:
   data:
     mongodb:
-      uri: ${MONGODB_URI:mongodb://root@192.168.43.103:1003/home}
+      uri: ${MONGODB_URI:mongodb://root:123456qwe@8.134.180.176:1003/home?authSource=admin}
   redis:
-    host: ${REDIS_HOST:192.168.43.103}
-    port: ${REDIS_PORT:6379}
+    host: ${REDIS_HOST:8.134.180.176}
+    port: ${REDIS_PORT:1004}
     password: ${REDIS_PASSWORD:123456qwe}
 myGPT:
 #  url: ${GPT_URL:https://gateway.ai.cloudflare.com/v1/4056673681b0e77aa8bf0b8a2f8ced76/gpt-gateway/openai/chat/completions}
