@@ -24,7 +24,7 @@ jobs:
           distribution: 'adopt' # 使用的JDK发行版是AdoptOpenJDK
           maven: 'true' # 确保Maven也被安装
       - name: Cache Maven packages # 缓存Maven的依赖项，可以避免每次都从头下载所有依赖,以加快后续构建的速度
-        uses: actions/cache@v2
+        uses: actions/cache@v4
         with:
           path: ~/.m2 # 指定了要缓存的目录路径。~/.m2是Maven的本地仓库的默认位置，这里存储了Maven下载的所有依赖项
           # 设置一个唯一的键来保存和检索缓存。这个键包含了运行者的操作系统（runner.os），一个固定的字符串（m2），以及所有pom.xml文件内容的哈希值
