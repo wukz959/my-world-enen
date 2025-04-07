@@ -46,7 +46,7 @@ jobs:
       DOCKER_PASSWORD: ${{ secrets.DOCKER_PASSWORD }}
       DOCKER_REGISTRY: registry.cn-guangzhou.aliyuncs.com
       SERVER_USERNAME: root
-      SERVER_HOST: 8.134.180.176
+      SERVER_HOST: ${{ secrets.SERVER_IP }}
     runs-on: ubuntu-latest
     steps:
       - name: Checkout code
