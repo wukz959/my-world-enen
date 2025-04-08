@@ -5,15 +5,15 @@ server:
 spring:
   data:
     mongodb: # 192.168.43.103
-      uri: mongodb://root:123456qwe@8.134.180.176:1003/home?authSource=admin
+      uri: mongodb://root:123456qwe@192.168.43.103:1003/home?authSource=admin
   redis:
-    host: 8.134.180.176
+    host: 192.168.43.103
     port: 1004
     password: 123456qwe
 myGPT:
 #  url: ${GPT_URL:https://gateway.ai.cloudflare.com/v1/4056673681b0e77aa8bf0b8a2f8ced76/gpt-gateway/openai/chat/completions}
   url: ${GPT_URL:https://chatmyworld.fun/v1/chat/completions}
-  apiKey: ${GPT_API_KEY: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}
+  apiKey: ${GPT_API_KEY:example-code}
   model: ${GPT_MODEL:gpt-3.5-turbo}
   maxTokens: ${GPT_MAX_TOKEN:800} # 每个回答最多可消费token
   textMaxLength: ${GPT_TEXT_MAX_LENGTH:500} # 每个问题最多可占字符数
@@ -23,8 +23,8 @@ myGPT:
 aliyun:
   oss:
     endpoint: oss-cn-guangzhou.aliyuncs.com
-    accessKeyId: LTAI5tEWRD4CAz9pvQmp4hK7
-    accessKeySecret: 3vQDDajcsvvKqpSU6cqB9sRqY2Fej4
+    accessKeyId: example-code
+    accessKeySecret: example-code
     bucketName: hellowukz
 
 origin:

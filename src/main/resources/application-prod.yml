@@ -5,15 +5,15 @@ server:
 spring:
   data:
     mongodb:
-      uri: ${MONGODB_URI:mongodb://root:123456qwe@8.134.180.176:1003/home?authSource=admin}
+      uri: ${MONGODB_URI:mongodb://root:123456qwe@192.168.43.103:1003/home?authSource=admin}
   redis:
-    host: ${REDIS_HOST:8.134.180.176}
+    host: ${REDIS_HOST:192.168.43.103}
     port: ${REDIS_PORT:1004}
     password: ${REDIS_PASSWORD:123456qwe}
 myGPT:
 #  url: ${GPT_URL:https://gateway.ai.cloudflare.com/v1/4056673681b0e77aa8bf0b8a2f8ced76/gpt-gateway/openai/chat/completions}
   url: ${GPT_URL:https://chatmyworld.fun/v1/chat/completions}
-  apiKey: ${GPT_API_KEY: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}
+  apiKey: ${GPT_API_KEY:example-code}
   model: ${GPT_MODEL:gpt-3.5-turbo}
   maxTokens: ${GPT_MAX_TOKEN:800} # 每个回答最多可消费token
   textMaxLength: ${GPT_TEXT_MAX_LENGTH:500} # 每个问题最多可占字符数
@@ -24,8 +24,8 @@ origin:
 aliyun:
   oss:
     endpoint: ${ALIYUN_OSS_ENDPOINT:oss-cn-guangzhou.aliyuncs.com}
-    accessKeyId: ${ALIYUN_OSS_ACCESS_KEY_ID:LTAI5tEWRD4CAz9pvQmp4hK7}
-    accessKeySecret: ${ALIYUN_OSS_ACCESS_KEY_SECRET:3vQDDajcsvvKqpSU6cqB9sRqY2Fej4}
+    accessKeyId: ${ALIYUN_OSS_ACCESS_KEY_ID:example-code}
+    accessKeySecret: ${ALIYUN_OSS_ACCESS_KEY_SECRET:example-code}
     bucketName: ${ALIYUN_OSS_BUCKET_NAME:hellowukz}
 
 logging:
