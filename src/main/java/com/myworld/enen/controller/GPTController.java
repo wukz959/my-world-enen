@@ -42,6 +42,10 @@ public class GPTController {
 
     @PostMapping("/talkToGPT")
     public Result talkToGPT(@RequestBody ChatRecord questionRecord, HttpServletRequest request){
+        return Result.success().put("不好意思，GPT暂停服务");
+        //后面要用的话，取消掉下面一个注释符号即可：/* */，其他的注释不要动
+        /*
+
         // cloudflare的ai 网关接受请求的参数不能带有换行符\n
         String question = questionRecord.getQuestion().replaceAll("\n", "  ");
         log.info("get question: {}", question);
@@ -100,6 +104,8 @@ public class GPTController {
         }
         //TODO 返回结果是否加上id
         return Result.success().put(ans);
+
+         */
     }
 
     @GetMapping("/getMsgMaxLength")

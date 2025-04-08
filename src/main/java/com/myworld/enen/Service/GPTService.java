@@ -25,7 +25,6 @@ public class GPTService {
     private int maxTokens;
     
     public String askQuestion(String question) throws IOException {
-        return "不好意思，GPT没钱了";
-//        return GPTKit.talkTochatGPT(url, apiKey, model, maxTokens, question);
+        return GPTKit.talkTochatGPT(url, apiKey, model, maxTokens, question);
     }
 }
